@@ -1,1 +1,198 @@
 
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Медицинский квест 💌</title>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#c9f1e0;--bg2:#d6eefb;--card:#ffffffdd;--text:#1f4a5c;--muted:#5f8a99;
+  --pink:#1fa595;--pink2:#7fdccd;--ok:#6fd6a0;--bad:#ff9a9a;--btn:#fff;--line:#bfe6dc;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg1:#12333f;--bg2:#0f2a3a;--card:#1d4553dd;--text:#e6fbf5;--muted:#9cc9c4;--btn:#245566;--line:#35707a;color-scheme:dark}}
+:root[data-theme="dark"]{--bg1:#12333f;--bg2:#0f2a3a;--card:#1d4553dd;--text:#e6fbf5;--muted:#9cc9c4;--btn:#245566;--line:#35707a;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:'Comfortaa',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--text);
+  background:linear-gradient(160deg,var(--bg1),var(--bg2));display:flex;justify-content:center;padding:20px 14px 40px;overflow-x:hidden}
+.wrap{width:100%;max-width:460px}
+.card{background:var(--card);backdrop-filter:blur(8px);border-radius:28px;padding:26px 22px;box-shadow:0 10px 30px #1fa59540;border-top:6px solid var(--pink);text-align:center;animation:pop .4s ease}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.97)}to{opacity:1;transform:none}}
+h1{font-size:26px;margin:8px 0 10px;line-height:1.25}
+p{line-height:1.5;margin:8px 0}
+.muted{color:var(--muted);font-size:14px}
+.bar{height:10px;background:var(--line);border-radius:10px;overflow:hidden;margin:0 0 4px}
+.bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--pink2),var(--pink));border-radius:10px;transition:width .5s}
+.count{font-size:13px;color:var(--muted);margin-bottom:14px;text-align:right}
+.pic{font-size:68px;line-height:1.1;margin:6px 0 10px;word-break:break-word}
+.pic.small{font-size:44px}
+.q{font-size:18px;font-weight:700;margin:6px 0 16px}
+.opts{display:grid;gap:10px}
+button,input{font:inherit;color:inherit}
+.opt,.btn{border:2px solid var(--line);background:var(--btn);border-radius:18px;padding:13px 14px;font-weight:700;cursor:pointer;transition:transform .15s,background .2s,border-color .2s}
+.opt:active,.btn:active{transform:scale(.97)}
+.btn.main{background:linear-gradient(90deg,var(--pink2),var(--pink));border-color:transparent;color:#fff;margin-top:14px;width:100%;font-size:16px}
+.opt.ok{background:var(--ok);border-color:var(--ok);color:#173d28}
+.opt.bad{background:var(--bad);border-color:var(--bad);color:#4a1a1a;animation:shake .35s}
+.opt:disabled{cursor:default}
+@keyframes shake{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+input{width:100%;border:2px solid var(--line);background:var(--btn);border-radius:18px;padding:13px 14px;text-align:center;font-size:17px;outline:none}
+input:focus{border-color:var(--pink)}
+input.bad{border-color:var(--bad);animation:shake .35s}
+input.ok{border-color:var(--ok)}
+.row{display:flex;gap:10px;margin-top:10px}
+.row .btn{flex:1}
+.msg{min-height:44px;margin-top:12px;font-weight:700}
+.hint{font-size:14px;color:var(--muted);margin-top:6px;min-height:20px}
+.gift{margin-top:16px;padding:18px;border-radius:22px;background:linear-gradient(135deg,#e9fbf4,#d4f3ea);color:#1f4a5c;border:2px dashed var(--pink);animation:pop .5s ease}
+.hearts{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:5}
+.hearts span{position:absolute;bottom:-40px;animation:fly linear forwards}
+@keyframes fly{to{transform:translateY(-110vh) rotate(25deg);opacity:0}}
+.photo{width:176px;height:176px;margin:6px auto 16px;padding:7px;background:#fff;border-radius:6px;transform:rotate(-3deg);box-shadow:0 8px 18px #1b587a44}
+.photo svg{display:block;width:100%;height:100%}
+.g,.p,.b,.w,.gr,.y,.o2{stroke-width:5;stroke-linejoin:round;stroke-linecap:round}
+.g{fill:#9deaff;stroke:#52bde8;stroke-opacity:.55}
+.l{fill:none;stroke:#9deaff;stroke-width:5;stroke-linecap:round;stroke-linejoin:round}
+.d{fill:#1b587a}
+.p{fill:#ff7f9d;stroke:#ffb3cc;stroke-opacity:.6}
+.b{fill:#e8845a;stroke:#ffb089;stroke-opacity:.6}
+.w{fill:#fff;stroke:#bfe9fa;stroke-opacity:.8}
+.gr{fill:#7bd3a0;stroke:#b6efd0;stroke-opacity:.6}
+.y{fill:#ffd86b;stroke:#fff0a8;stroke-opacity:.6}
+.o2{fill:#ffa940;stroke:#ffd08a;stroke-opacity:.6}
+.tag{font-size:11px;letter-spacing:.08em;color:var(--pink);font-weight:700;text-align:left;margin-bottom:10px}
+.wrap{position:relative;z-index:1}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90'%3E%3Cpath d='M45 35v20M35 45h20' stroke='%231fa595' stroke-opacity='.13' stroke-width='6' stroke-linecap='round'/%3E%3C/svg%3E")}
+.rx{margin-top:14px;padding:14px;background:#ffffffb3;border:2px dashed var(--pink);border-radius:16px;text-align:left;font-size:14px;line-height:1.6}
+.hidden{display:none}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<div class="hearts" id="hearts"></div>
+<script>
+// ====== НАСТРОЙКИ (меняй тут) ======
+var NAME = "";                       // например "Катя" — появится в приветствии
+var GIFT_TITLE = "Уже несу 🎁🏃";
+var GIFT_TEXT = "Совсем скоро буду с подарком и обнимашками 💝";
+// ====================================
+
+var Q = [
+ {t:"choice", pic:"heart", q:"Какой орган на картинке?", o:["Лёгкие","Сердце","Печень"], a:1, ok:"Верно! Сердце — единственный орган, который работает без выходных. Почти как студент-медик 💗"},
+ {t:"text", pic:"steth", q:"Как называется прибор, которым врач слушает сердце и лёгкие?", a:["стетоскоп","фонендоскоп","фонендоскоп/стетоскоп"], hint:"Начинается на «стето…» или «фонендо…»", ok:"Точно! Стетоскоп на шее — главный аксессуар будущего врача 👩‍⚕️"},
+ {t:"choice", pic:"tooth", q:"Какой врач лечит зубы?", o:["Окулист","Кардиолог","Стоматолог"], a:2, ok:"Верно! Зубы лечат стоматологи, а настроение — ты 😁"},
+ {t:"text", pic:"stove", q:"Ребус: убери последнюю букву и добавь «ЕНЬ». Что за орган?", a:["печень"], hint:"Самая крупная железа, живёт справа под рёбрами", ok:"Печь → печ + ень = печень! Она всё терпит и молчит, как настоящий врач 🔥"},
+ {t:"choice", pic:"drop", q:"Какая группа крови считается «универсальным донором»?", o:["I (0)","II (A)","IV (AB)"], a:0, ok:"Да! I группа — универсальный донор. А ты — универсальный источник хорошего настроения 💉"},
+ {t:"text", pic:"sprout", q:"На ветке это весенний росток, а в организме их две, и они фильтруют кровь. Что это?", a:["почка","почки"], hint:"Бобовидные органы, лежат в пояснице", ok:"Почка! Две штуки, чтобы одна пережила сессию 🌿"},
+ {t:"choice", pic:"skull", q:"Сколько костей у взрослого человека?", o:["106","206","306"], a:1, ok:"Ага! 206. Но в анатомичке кажется, что их все 2060 💪"},
+ {t:"choice", pic:"brain", q:"Как называется нервная клетка?", o:["Эритроцит","Нейрон","Альвеола"], a:1, ok:"Нейрон! Они не восстанавливаются, так что береги их и ложись спать вовремя ✨"},
+ {t:"text", pic:"orange", q:"Какой витамин особенно любят апельсины? Витамин …", a:["с","c","витамин с","витамин c","аскорбинка","аскорбиновая кислота"], hint:"Это первая буква слова «Сок» 🍹", ok:"Витамин С! А основной витамин студента-медика — кофе 🧡"},
+ {t:"choice", pic:"mail", q:"Последний вопрос! Кто больше всех тебя любит?", o:["Скальпель","Тот, кто придумал этот квест","Стетоскоп"], a:1, ok:"Правильный ответ! Диагноз: любит безнадёжно, лечению не поддаётся 🥰"}
+];
+function S(x){return '<svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid0" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M10 0H0V10" fill="none" stroke="#9deaff" stroke-opacity=".2"/></pattern></defs><rect width="100" height="100" fill="#1b587a"/><rect width="100" height="100" fill="url(#grid0)"/>'+x+'</svg>'}
+function skull(hat){return S('<path class="l" d="M50 70v26M28 84c8-9 36-9 44 0M36 95c7-5 21-5 28 0"/><path class="g" d="M30 42a20 20 0 0 1 40 0c0 8-3 12-7 15v8H37v-8c-4-3-7-7-7-15z"/><ellipse class="d" cx="41" cy="44" rx="6" ry="7"/><ellipse class="d" cx="59" cy="44" rx="6" ry="7"/><path class="d" d="M50 52l-3 6h6z"/>'+(hat?'<path class="p" d="M40 26l10-20 10 20z"/><circle class="y" cx="50" cy="6" r="3.5"/>':''))}
+var ICONS={
+ heart:S('<path class="p" d="M50 82C20 62 14 40 28 28c9-7 18-3 22 5 4-8 13-12 22-5 14 12 8 34-22 54z"/><path d="M30 38c2-5 6-7 10-6" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="4" stroke-linecap="round"/><path d="M8 56h22l6-12 8 26 6-14h34" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>'),
+ steth:S('<path class="l" d="M30 14v22a16 16 0 0 0 32 0V14"/><circle class="w" cx="30" cy="12" r="4"/><circle class="w" cx="62" cy="12" r="4"/><path class="l" d="M46 52v22a14 14 0 0 0 28 0V66"/><circle class="g" cx="74" cy="58" r="9"/><circle class="d" cx="74" cy="58" r="4"/>'),
+ tooth:S('<path class="w" d="M32 28c6-8 14-4 18-2 4-2 12-6 18 2 6 8 0 22-2 34-1 10-4 24-9 24-6 0-4-20-7-20s-1 20-7 20c-5 0-8-14-9-24-2-12-8-26-2-34z"/><path class="y" d="M78 14l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>'),
+ stove:S('<rect class="b" x="60" y="14" width="12" height="24" rx="2"/><rect class="b" x="22" y="34" width="56" height="52" rx="6"/><path d="M22 46h56M22 58h14M64 58h14M22 72h14M64 72h14" stroke="#ffd0b8" stroke-opacity=".5" stroke-width="2" fill="none"/><path class="d" d="M38 86V64a12 12 0 0 1 24 0v22z"/><path class="y" d="M50 84c-8-2-9-10-4-16 1 4 4 4 4 0 5 4 9 8 8 12-1 3-4 4-8 4z"/><circle cx="70" cy="8" r="4" fill="#fff" fill-opacity=".6"/>'),
+ drop:S('<path class="p" d="M50 12C34 36 26 46 26 60a24 24 0 0 0 48 0c0-14-8-24-24-48z"/><path d="M50 52v16M42 60h16" stroke="#fff" stroke-width="5" stroke-linecap="round"/>'),
+ sprout:S('<path d="M50 88V50" stroke="#7bd3a0" stroke-width="5" stroke-linecap="round" fill="none"/><path class="gr" d="M50 56C50 38 36 30 22 32c0 16 12 26 28 24z"/><path class="gr" d="M50 48C50 30 62 20 78 22c0 16-12 26-28 26z"/><ellipse cx="50" cy="90" rx="24" ry="6" fill="#8a5a3c"/>'),
+ skull:skull(false),
+ party:skull(true),
+ brain:S('<g id="lobe"><path class="p" d="M48 24c-6-8-22-6-24 6-8 3-10 14-4 20-3 9 3 19 13 19 3 6 12 8 15 2z"/><path d="M30 40c6 0 8 6 14 4M28 58c6-2 8 2 14 0M36 32c2 4 6 4 8 8" fill="none" stroke="#e0527c" stroke-width="3" stroke-linecap="round"/></g><use href="#lobe" transform="translate(100 0) scale(-1 1)"/>'),
+ orange:S('<circle class="o2" cx="50" cy="56" r="30"/><path class="gr" d="M50 28c0-10 10-14 18-12-2 10-8 14-18 12z"/><path d="M34 46c3-8 10-11 16-11" stroke="#fff" stroke-opacity=".6" stroke-width="4" fill="none" stroke-linecap="round"/>'),
+ mail:S('<rect class="w" x="14" y="30" width="72" height="50" rx="6"/><path d="M14 36l36 26 36-26" fill="none" stroke="#ffb3cc" stroke-width="4" stroke-linejoin="round"/><path class="p" d="M50 74c-10-6-12-12-8-16 3-2 7-1 8 3 1-4 5-5 8-3 4 4 2 10-8 16z"/>'),
+ gift:S('<rect class="p" x="22" y="44" width="56" height="42" rx="4"/><rect class="p" x="18" y="34" width="64" height="14" rx="4"/><rect fill="#ffd86b" x="46" y="34" width="8" height="52"/><path class="y" d="M50 34c-8-14-22-8-16 0 4 4 12 2 16 0zM50 34c8-14 22-8 16 0-4 4-12 2-16 0z"/>')
+};
+var i=0, app=document.getElementById('app');
+var WRONG=['Вскрытие покажет, что ответ другой 😄 Попробуй ещё!','Диагноз: временное помутнение. Лечение: подумать ещё раз 🩺','Здоровых нет, есть недообследованные. Перепроверь ответ 🔍','Пациент скорее жив, чем мёртв: ты близко 😅','Назначаю повторную попытку, 3 раза в день после еды 💊','Это не по учебнику, но попытка засчитана 🌸'];
+function wrong(){return WRONG[Math.floor(Math.random()*WRONG.length)]}
+
+function norm(s){return s.toLowerCase().replace(/ё/g,'е').replace(/[^a-zа-я0-9\/ ]/g,'').trim().replace(/\s+/g,' ')}
+function el(h){var d=document.createElement('div');d.innerHTML=h;return d.firstElementChild}
+function hearts(n){
+  var box=document.getElementById('hearts'),e=['💚','🩺','💊','🩹','✨','💗','🧬'];
+  for(var k=0;k<n;k++){(function(){
+    var s=document.createElement('span');s.textContent=e[Math.floor(Math.random()*e.length)];
+    s.style.left=Math.random()*100+'%';s.style.fontSize=(16+Math.random()*22)+'px';
+    s.style.animationDuration=(2.5+Math.random()*2.5)+'s';s.style.animationDelay=(Math.random()*.8)+'s';
+    box.appendChild(s);setTimeout(function(){s.remove()},6500);
+  })()}
+}
+function start(){
+  app.innerHTML='<div class="card"><div class="photo">'+ICONS.party+'</div><h1>С днём рождения'+(NAME?', '+NAME:'')+'! 💖</h1>'+
+  '<p>Для тебя приготовлен маленький медицинский квест.</p><p class="muted">10 совсем простых вопросов — ответишь на все, получишь подарок 🎁</p><p class="muted">⚠️ Возможны побочные эффекты: улыбка и хорошее настроение</p>'+
+  '<button class="btn main" id="go">Начать приключение ✨</button></div>';
+  document.getElementById('go').onclick=function(){i=0;show();hearts(8)};
+}
+function head(){
+  return '<div class="tag">✚ МЕДКАРТА ИМЕНИННИЦЫ</div><div class="bar"><i style="width:'+(i/Q.length*100)+'%"></i></div><div class="count">Вопрос '+(i+1)+' из '+Q.length+'</div>';
+}
+function next(card,msg,q){
+  card.querySelector('.msg').textContent=msg;
+  var b=el('<button class="btn main">'+(i===Q.length-1?'Получить подарок 🎁':'Дальше →')+'</button>');
+  b.onclick=function(){i++;i>=Q.length?finish():show()};
+  card.appendChild(b);hearts(6);
+}
+function show(){
+  var q=Q[i],card=el('<div class="card">'+head()+'<div class="photo">'+ICONS[q.pic]+'</div><div class="q">'+q.q+'</div></div>');
+  if(q.t==='choice'){
+    var box=el('<div class="opts"></div>');
+    q.o.forEach(function(txt,k){
+      var b=el('<button class="opt"></button>');b.textContent=txt;
+      b.onclick=function(){
+        if(k===q.a){
+          b.classList.add('ok');
+          [].forEach.call(box.children,function(x){x.disabled=true});
+          next(card,q.ok);
+        }else{
+          b.classList.add('bad');b.disabled=true;
+          card.querySelector('.msg').textContent=wrong();
+        }
+      };
+      box.appendChild(b);
+    });
+    card.appendChild(box);
+    card.appendChild(el('<div class="msg"></div>'));
+  }else{
+    var inp=el('<input type="text" placeholder="Твой ответ…" autocomplete="off">');
+    var row=el('<div class="row"></div>');
+    var chk=el('<button class="btn">Проверить ✔</button>'),hb=el('<button class="btn">Подсказка 💡</button>');
+    var hint=el('<div class="hint"></div>'),msg=el('<div class="msg"></div>');
+    function check(){
+      var v=norm(inp.value);if(!v)return;
+      if(q.a.some(function(x){return norm(x)===v})){
+        inp.className='ok';inp.disabled=true;chk.disabled=true;hb.disabled=true;next(card,q.ok);
+      }else{
+        inp.className='';void inp.offsetWidth;inp.className='bad';msg.textContent=wrong();
+      }
+    }
+    chk.onclick=check;
+    inp.onkeydown=function(e){if(e.key==='Enter')check()};
+    hb.onclick=function(){hint.textContent=q.hint};
+    row.appendChild(hb);row.appendChild(chk);
+    [inp,row,hint,msg].forEach(function(n){card.appendChild(n)});
+    setTimeout(function(){try{inp.focus()}catch(e){}},50);
+  }
+  app.innerHTML='';app.appendChild(card);
+}
+function finish(){
+  app.innerHTML='<div class="card"><div class="photo">'+ICONS.gift+'</div><h1>Ты прошла весь квест!</h1>'+
+  '<p>Ты умница, будущий врач и просто самая лучшая 💖</p>'+'<div class="rx"><b>℞ Рецепт</b><br>Rp.: Obnimashki №∞<br>D.S.: принимать внутрь 3 раза в день: до еды, после еды и вместо еды.<br><i>Побочные эффекты: улыбка, хорошее настроение, повышенная любовь.</i><br><i>Противопоказаний нет. Прогноз благоприятный 😌</i></div>'+
+  '<button class="btn main" id="open">Открыть подарок 🎁</button>'+
+  '<div class="gift hidden" id="gift"><b>'+GIFT_TITLE+'</b><p>'+GIFT_TEXT+'</p></div></div>';
+  hearts(25);
+  document.getElementById('open').onclick=function(){
+    this.classList.add('hidden');document.getElementById('gift').classList.remove('hidden');hearts(40);
+  };
+}
+start();
+</script>
+</body>
+</html>
